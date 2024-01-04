@@ -1,0 +1,10 @@
+{
+  "name": "socket-test",
+  "version": "0.1.0",
+  "dependencies": [
+    "catch2",
+    "spdlog",
+    "sdl2",
+    "sfml"
+  ]
+}
