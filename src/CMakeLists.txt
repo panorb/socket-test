@@ -1,4 +1,4 @@
-add_subdirectory(Core)
-add_subdirectory(Game)
-add_subdirectory(Test)
+add_subdirectory(core)
+add_subdirectory(game)
+add_subdirectory(test)
 
