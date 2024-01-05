@@ -20,3 +20,7 @@ int mainLoop() {
 
 	return EXIT_SUCCESS;
 }
+
+int main() {
+	return mainLoop();
+}

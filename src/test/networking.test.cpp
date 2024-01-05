@@ -1,5 +1,5 @@
 #include <catch.hpp>
-#include "networking.hpp"
+#include "core/networking.hpp"
 
 // Test creation of sockets
 TEST_CASE("Socket creation", "[networking]")
@@ -30,4 +30,3 @@ TEST_CASE("Address resolving", "[networking]")
 	address = SocketAddressFactory::CreateIPv4FromString("thisisnotadomain.pop");
 	REQUIRE(address == nullptr);
 }
-
