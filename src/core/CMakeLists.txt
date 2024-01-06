@@ -11,10 +11,23 @@ set(networking_sources
   tcp_socket.cpp
   udp_socket.cpp)
 
+set(main_headers
+  game_core.hpp)
+
+set(main_sources
+  game_core.cpp)
+
 source_group("Header Files/Networking" FILES ${networking_headers})
 source_group("Source Files/Networking" FILES ${networking_sources})
 
-add_library(SocketCore STATIC ${networking_headers} ${networking_sources})
+source_group("Header Files/Main" FILES ${main_headers})
+source_group("Source Files/Main" FILES ${main_sources})
+
+add_library(SocketCore STATIC
+  ${networking_headers}
+  ${networking_sources}
+  ${main_headers}
+  ${main_sources})
 
 if (WIN32)
   target_link_libraries(SocketCore PUBLIC wsock32 ws2_32)
