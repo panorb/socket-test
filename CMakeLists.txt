@@ -7,9 +7,7 @@ include_directories(src)
 # Find dependencies (managed via vcpkg)
 find_package(catch2 CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
-find_package(sdl2 CONFIG REQUIRED)
-
-find_package(SFML COMPONENTS system graphics window CONFIG REQUIRED)
+find_package(raylib CONFIG REQUIRED)
 
 # Set CMake defaults
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")

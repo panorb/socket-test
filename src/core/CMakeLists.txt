@@ -34,5 +34,5 @@ if (WIN32)
 endif()
 
 target_link_libraries(SocketCore PUBLIC spdlog::spdlog)
-target_link_libraries(SocketCore PRIVATE sfml-system sfml-graphics sfml-window)
+target_link_libraries(SocketCore PRIVATE raylib)
 
