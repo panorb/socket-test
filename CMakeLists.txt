@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28.1)
+cmake_minimum_required(VERSION 3.27.2)
 
 # Create projects
 project(SocketTest LANGUAGES CXX)
@@ -42,6 +42,7 @@ catch_discover_tests(SocketTest)
 # Set debug arguments here, so that I don't have to manually set them again
 # every time I make changes to the Cmake-Files
 if(MSVC)
+	set(VS_STARTUP_PROJECT SocketTest)
 #	set_target_properties(SocketHelloWorld PROPERTIES
 #							VS_DEBUGGER_WORKING_DIRECTORY "$(TargetDir)")
 endif()
