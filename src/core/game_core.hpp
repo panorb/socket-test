@@ -1,3 +1,3 @@
 #include <raylib.h>
 
-int mainLoop();
+int MainLoop();

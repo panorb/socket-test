@@ -30,7 +30,7 @@ add_library(SocketCore STATIC
   ${main_sources})
 
 if (WIN32)
-  target_link_libraries(SocketCore PUBLIC wsock32 ws2_32)
+  target_link_libraries(SocketCore PRIVATE wsock32 ws2_32 winmm.lib)
 endif()
 
 target_link_libraries(SocketCore PUBLIC spdlog::spdlog)
