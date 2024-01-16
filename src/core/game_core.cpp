@@ -1,25 +1,62 @@
-#include "core/game_core.hpp"
-#include <raylib.h>
+#include "game_core.hpp"
+#include "game_player.hpp"
+
+const double MS_PER_UPDATE = 1000.0 / 25.0;
+
+constexpr int screenWidth = 800;
+constexpr int screenHeight = 450;
+size_t updateFrame = 0;
+
+Player player;
 
 int MainLoop() {
-	const int screenWidth = 800;
-	const int screenHeight = 450;
-
 	InitWindow(screenWidth, screenHeight, "Socket Test Game");
+	SetTargetFPS(60);
+	SetWindowState(FLAG_VSYNC_HINT);
 
-	Texture2D player = LoadTexture("assets/Characters/green_character.png");
-	
-	Rectangle sourceRect{ 0.0f, 0.0f, player.width, player.height };
-	Rectangle destRect{ screenWidth / 2.0f, screenHeight / 2.0f, player.width, player.height };
-	Vector2 origin = { player.width / 2.0f, player.height / 2.0f };
+	player.Init();
+
+	double previous = GetTime() * 1000;
+	double lag = 0.0;
 
 	while (!WindowShouldClose()) {
-		BeginDrawing();
-		ClearBackground(RAYWHITE);
-		DrawTexturePro(player, sourceRect, destRect, origin, 0.0, RAYWHITE );
-		EndDrawing();
+		double current = GetTime() * 1000;
+		double elapsed = current - previous;
+		previous = current;
+		lag += elapsed;
+
+		while (lag >= MS_PER_UPDATE) {
+			Update();
+			
+			lag -= MS_PER_UPDATE;
+		}
+
+		Render();
 	}
 
-	UnloadTexture(player);
+	CloseWindow();
 	return 0;
+}
+
+void Update() {
+	spdlog::info("Update");
+	player.Update();
+
+	updateFrame = (++updateFrame) % 1000;
+}
+
+void Render() {
+	spdlog::info("Render");
+
+	BeginDrawing();
+	ClearBackground(RAYWHITE);
+	player.Render();
+	DrawFPS(10, 10);
+
+	
+	std::string updateFrameNum = "Update Frame: ";
+	updateFrameNum += std::to_string(updateFrame);
+
+	DrawText(updateFrameNum.c_str(), 10, 30, 20, BLACK);
+	EndDrawing();
 }
