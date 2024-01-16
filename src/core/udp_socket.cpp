@@ -10,8 +10,7 @@ UDPSocket::~UDPSocket()
 int UDPSocket::Bind(const SocketAddress& inBindAddress)
 {
     int err = bind(mSocket, &inBindAddress.mSockAddr, static_cast<int>(inBindAddress.GetSize()));
-    // int err = bind(mSocket, &inBindAddress.mSockAddr,
-    //    inBindAddress.GetSize());
+
     if (err != 0)
     {
         SocketUtil::ReportError("UDPSocket::Bind");
