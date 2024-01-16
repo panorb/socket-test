@@ -10,11 +10,14 @@ TEST_CASE("Socket creation", "[networking]")
 	SECTION("Create UDPSocket") {
 		UDPSocketPtr socket = SocketUtil::CreateUDPSocket(SocketAddressFamily::INET);
 		REQUIRE(socket != nullptr);
+		REQUIRE(SocketUtil::GetLastError() == 0);
 	}
+
 	
 	SECTION("Create TCPSocket") {
 		TCPSocketPtr socket = SocketUtil::CreateTCPSocket(SocketAddressFamily::INET);
 		REQUIRE(socket != nullptr);
+		REQUIRE(SocketUtil::GetLastError() == 0);
 	}
 }
 
