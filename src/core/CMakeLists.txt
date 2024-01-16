@@ -3,19 +3,23 @@ set(networking_headers
   socket_address.hpp
   socket_util.hpp
   tcp_socket.hpp
-  udp_socket.hpp)
+  udp_socket.hpp
+  memory_stream.hpp)
 
 set(networking_sources
   socket_address.cpp
   socket_util.cpp
   tcp_socket.cpp
-  udp_socket.cpp)
+  udp_socket.cpp
+  memory_stream.cpp)
 
 set(main_headers
-  game_core.hpp)
+  game_core.hpp
+  game_player.hpp)
 
 set(main_sources
-  game_core.cpp)
+  game_core.cpp
+  game_player.cpp)
 
 source_group("Header Files/Networking" FILES ${networking_headers})
 source_group("Source Files/Networking" FILES ${networking_sources})
