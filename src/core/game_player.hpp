@@ -2,13 +2,15 @@
 
 #include <raylib.h>
 
-struct Player {
+#include "game_object.hpp"
+
+struct Player : public GameObject {
 	~Player();
 
-	Texture2D texture;
-	Rectangle source_rect;
+	Texture2D texture_;
+	Rectangle source_rect_;
 
-	Vector2 position;
+	Vector2 position_;
 
 	void Init();
 	void Update();

@@ -6,9 +6,9 @@ TCPSocket::~TCPSocket()
 {
 }
 
-int TCPSocket::Connect(const SocketAddress& inAddress)
+int TCPSocket::Connect(const SocketAddress& in_address)
 {
-    int err = connect(mSocket, &inAddress.mSockAddr, static_cast<int>(inAddress.GetSize()));
+    int err = connect(socket_, &in_address.sock_addr_, static_cast<int>(in_address.GetSize()));
     if (err < 0)
     {
         SocketUtil::ReportError("TCPSocket::Connect");
@@ -17,14 +17,14 @@ int TCPSocket::Connect(const SocketAddress& inAddress)
     return NO_ERROR;
 }
 
-int TCPSocket::Bind(const SocketAddress& inToAddress)
+int TCPSocket::Bind(const SocketAddress& in_to_address)
 {
     return 0;
 }
 
-int TCPSocket::Listen(int inBackLog)
+int TCPSocket::Listen(int in_backlog)
 {
-    int err = listen(mSocket, inBackLog);
+    int err = listen(socket_, in_backlog);
     if (err < 0)
     {
         SocketUtil::ReportError("TCPSocket::Listen");
@@ -33,10 +33,10 @@ int TCPSocket::Listen(int inBackLog)
     return NO_ERROR;
 }
 
-TCPSocketPtr TCPSocket::Accept(SocketAddress& inFromAddress)
+TCPSocketPtr TCPSocket::Accept(SocketAddress& in_from_address)
 {
-    int length = static_cast<int>(inFromAddress.GetSize());
-    SOCKET newSocket = accept(mSocket, &inFromAddress.mSockAddr, &length);
+    int length = static_cast<int>(in_from_address.GetSize());
+    SOCKET newSocket = accept(socket_, &in_from_address.sock_addr_, &length);
 
     if (newSocket != INVALID_SOCKET)
     {
@@ -49,11 +49,11 @@ TCPSocketPtr TCPSocket::Accept(SocketAddress& inFromAddress)
     }
 }
 
-int TCPSocket::Send(const void* inData, int inLen)
+int TCPSocket::Send(const void* in_data, int in_len)
 {
-    int bytesSentCount = send(mSocket,
-        static_cast<const char*>(inData),
-        inLen, 0);
+    int bytesSentCount = send(socket_,
+        static_cast<const char*>(in_data),
+        in_len, 0);
     if (bytesSentCount < 0)
     {
         SocketUtil::ReportError("TCPSocket::Send");
@@ -62,10 +62,10 @@ int TCPSocket::Send(const void* inData, int inLen)
     return bytesSentCount;
 }
 
-int TCPSocket::Receive(void* inData, int inLen)
+int TCPSocket::Receive(void* out_data, int in_len)
 {
-    int bytesReceivedCount = recv(mSocket,
-        static_cast<char*>(inData), inLen, 0);
+    int bytesReceivedCount = recv(socket_,
+        static_cast<char*>(out_data), in_len, 0);
     if (bytesReceivedCount < 0)
     {
         SocketUtil::ReportError("TCPSocket::Receive");

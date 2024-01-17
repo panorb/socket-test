@@ -7,13 +7,13 @@ class UDPSocket
 {
 public:
     ~UDPSocket();
-    int Bind(const SocketAddress& inToAddress);
-    int SendTo(const void* inData, int inLen, const SocketAddress& inTo);
-    int ReceiveFrom(void* inBuffer, int inLen, SocketAddress& outFrom);
-    int SetNonBlockingMode(bool inShouldBeNonBlocking);
+    int Bind(const SocketAddress& in_bind_address);
+    int SendTo(const void* in_data, int in_max_length, const SocketAddress& in_to);
+    int ReceiveFrom(void* out_buffer, int in_max_length, SocketAddress& out_from);
+    int SetNonBlockingMode(bool in_should_be_non_blocking);
 private:
     friend class SocketUtil;
-    UDPSocket(SOCKET inSocket) : mSocket(inSocket) {}
-    SOCKET mSocket;
+    UDPSocket(SOCKET socket) : socket_(socket) {}
+    SOCKET socket_;
 };
 typedef std::shared_ptr<UDPSocket> UDPSocketPtr;

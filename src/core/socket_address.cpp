@@ -9,7 +9,7 @@ SocketAddress::SocketAddress(uint32_t inAddress, uint16_t inPort) {
 }
 
 SocketAddress::SocketAddress(const sockaddr& inSockAddr) {
-    memcpy(&mSockAddr, &inSockAddr, sizeof(sockaddr));
+    memcpy(&sock_addr_, &inSockAddr, sizeof(sockaddr));
 }
 
 size_t SocketAddress::GetSize() const
@@ -19,7 +19,7 @@ size_t SocketAddress::GetSize() const
 
 sockaddr_in* SocketAddress::GetAsSockAddrIn()
 {
-    return reinterpret_cast<sockaddr_in*>(&mSockAddr);
+    return reinterpret_cast<sockaddr_in*>(&sock_addr_);
 }
 
 // SocketAddressFactory helper

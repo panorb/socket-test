@@ -4,12 +4,12 @@
 
 UDPSocket::~UDPSocket()
 {
-    closesocket(mSocket);
+    closesocket(socket_);
 }
 
-int UDPSocket::Bind(const SocketAddress& inBindAddress)
+int UDPSocket::Bind(const SocketAddress& in_bind_address)
 {
-    int err = bind(mSocket, &inBindAddress.mSockAddr, static_cast<int>(inBindAddress.GetSize()));
+    int err = bind(socket_, &in_bind_address.sock_addr_, static_cast<int>(in_bind_address.GetSize()));
 
     if (err != 0)
     {
@@ -19,17 +19,16 @@ int UDPSocket::Bind(const SocketAddress& inBindAddress)
     return NO_ERROR;
 }
 
-
-int UDPSocket::SendTo(const void* inData, int inLen, const SocketAddress& inTo)
+int UDPSocket::SendTo(const void* in_data, int in_max_length, const SocketAddress& in_to)
 {
-    int byteSentCount = sendto(mSocket,
-        static_cast<const char*>(inData),
-        inLen,
-        0, &inTo.mSockAddr,
-        static_cast<int>(inTo.GetSize()));
-    if (byteSentCount >= 0)
+    int byte_sent_count = sendto(socket_,
+        static_cast<const char*>(in_data),
+        in_max_length,
+        0, &in_to.sock_addr_,
+        static_cast<int>(in_to.GetSize()));
+    if (byte_sent_count >= 0)
     {
-        return byteSentCount;
+        return byte_sent_count;
     }
     else
     {
@@ -39,17 +38,17 @@ int UDPSocket::SendTo(const void* inData, int inLen, const SocketAddress& inTo)
     }
 }
 
-int UDPSocket::ReceiveFrom(void* inBuffer, int inMaxLength, SocketAddress& outFromAddress)
+int UDPSocket::ReceiveFrom(void* in_buffer, int in_max_length, SocketAddress& out_from_address)
 {
-    int fromLength = static_cast<int>(outFromAddress.GetSize());
-    int readByteCount = recvfrom(mSocket,
-        static_cast<char*>(inBuffer),
-        inMaxLength,
-        0, &outFromAddress.mSockAddr,
-        &fromLength);
-    if (readByteCount >= 0)
+    int from_length = static_cast<int>(out_from_address.GetSize());
+    int read_byte_count = recvfrom(socket_,
+        static_cast<char*>(in_buffer),
+        in_max_length,
+        0, &out_from_address.sock_addr_,
+        &from_length);
+    if (read_byte_count >= 0)
     {
-        return readByteCount;
+        return read_byte_count;
     }
     else
     {
@@ -58,11 +57,11 @@ int UDPSocket::ReceiveFrom(void* inBuffer, int inMaxLength, SocketAddress& outFr
     }
 }
 
-int UDPSocket::SetNonBlockingMode(bool inShouldBeNonBlocking)
+int UDPSocket::SetNonBlockingMode(bool in_should_be_non_blocking)
 {
 #if _WIN32
-    u_long arg = inShouldBeNonBlocking ? 1 : 0;
-    int result = ioctlsocket(mSocket, FIONBIO, &arg);
+    u_long arg = in_should_be_non_blocking ? 1 : 0;
+    int result = ioctlsocket(socket_, FIONBIO, &arg);
 #else
     int flags = fcntl(mSocket, F_GETFL, 0);
     flags = inShouldBeNonBlocking ?

@@ -19,10 +19,12 @@ set(networking_sources
 
 set(main_headers
   game_core.hpp
+  game_object.hpp
   game_player.hpp)
 
 set(main_sources
   game_core.cpp
+  game_object.cpp
   game_player.cpp)
 
 set(external_headers

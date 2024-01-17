@@ -20,16 +20,16 @@ enum SocketAddressFamily
 
 class SocketAddress {
 public:
-	SocketAddress(uint32_t inAddress, uint16_t inPort);;
+	SocketAddress(uint32_t address, uint16_t port);;
 
-	SocketAddress(const sockaddr& inSockAddr);;
+	SocketAddress(const sockaddr& sock_addr);;
 
 	size_t GetSize() const;
 
 private:
 	friend class UDPSocket;
 	friend class TCPSocket;
-	sockaddr mSockAddr;
+	sockaddr sock_addr_;
 	sockaddr_in* GetAsSockAddrIn();
 };
 
@@ -37,5 +37,5 @@ typedef std::shared_ptr<SocketAddress> SocketAddressPtr;
 
 class SocketAddressFactory {
 public:
-	static SocketAddressPtr CreateIPv4FromString(const std::string& inString);
+	static SocketAddressPtr CreateIPv4FromString(const std::string& resolve_string);
 };

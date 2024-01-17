@@ -63,7 +63,7 @@ fd_set* SocketUtil::FillSetFromVector(fd_set& outSet,
         FD_ZERO(&outSet);
         for (const TCPSocketPtr& socket : *inSockets)
         {
-            FD_SET(socket->mSocket, &outSet);
+            FD_SET(socket->socket_, &outSet);
         }
         return &outSet;
     }
@@ -74,8 +74,7 @@ fd_set* SocketUtil::FillSetFromVector(fd_set& outSet,
 }
 
 void SocketUtil::FillVectorFromSet(std::vector<TCPSocketPtr>* outSockets,
-    const std::vector<TCPSocketPtr>*
-    inSockets,
+    const std::vector<TCPSocketPtr>* inSockets,
     const fd_set& inSet)
 {
     if (inSockets && outSockets)
@@ -83,7 +82,7 @@ void SocketUtil::FillVectorFromSet(std::vector<TCPSocketPtr>* outSockets,
         outSockets->clear();
         for (const TCPSocketPtr& socket : *inSockets)
         {
-            if (FD_ISSET(socket->mSocket, &inSet))
+            if (FD_ISSET(socket->socket_, &inSet))
             {
                 outSockets->push_back(socket);
             }

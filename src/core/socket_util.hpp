@@ -9,19 +9,18 @@ public:
     static bool StaticInit();
     static void ReportError(const std::string& error);
     static int GetLastError();
-    static UDPSocketPtr CreateUDPSocket(SocketAddressFamily inFamily);
-    static TCPSocketPtr CreateTCPSocket(SocketAddressFamily inFamily);
-    static fd_set* FillSetFromVector(fd_set& outSet,
+    static UDPSocketPtr CreateUDPSocket(SocketAddressFamily family);
+    static TCPSocketPtr CreateTCPSocket(SocketAddressFamily family);
+    static fd_set* FillSetFromVector(fd_set& out_set,
         const std::vector<TCPSocketPtr>*
-        inSockets);
-    static void FillVectorFromSet(std::vector<TCPSocketPtr>* outSockets,
-        const std::vector<TCPSocketPtr>*
-        inSockets,
-        const fd_set& inSet);
-    static int Select(const std::vector<TCPSocketPtr>* inReadSet,
-        std::vector<TCPSocketPtr>* outReadSet,
-        const std::vector<TCPSocketPtr>* inWriteSet,
-        std::vector<TCPSocketPtr>* outWriteSet,
-        const std::vector<TCPSocketPtr>* inExceptSet,
-        std::vector<TCPSocketPtr>* outExceptSet);
+        in_sockets);
+    static void FillVectorFromSet(std::vector<TCPSocketPtr>* out_sockets,
+        const std::vector<TCPSocketPtr>* in_sockets,
+        const fd_set& in_set);
+    static int Select(const std::vector<TCPSocketPtr>* in_read_set,
+        std::vector<TCPSocketPtr>* out_read_set,
+        const std::vector<TCPSocketPtr>* in_write_set,
+        std::vector<TCPSocketPtr>* out_write_set,
+        const std::vector<TCPSocketPtr>* in_except_set,
+        std::vector<TCPSocketPtr>* out_except_set);
 };
