@@ -1,0 +1,2 @@
+# Ignore fixed point header by Evan Teran that is automatically download on CMake configure
+fixed.h
